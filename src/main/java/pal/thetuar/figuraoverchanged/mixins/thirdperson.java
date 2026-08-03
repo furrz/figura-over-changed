@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class thirdperson {
     @Inject(method = "onRenderPlayerPre", at = @At("HEAD"), cancellable = true, remap=false)
     private void onRenderPlayerPre(RenderPlayerEvent.Pre event, CallbackInfo ci) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         Avatar avatar = AvatarManager.getAvatar(player);
         if (avatar != null && avatar.permissions.get(Permissions.OFFSCREEN_RENDERING) == 1)
             ci.cancel();

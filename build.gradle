@@ -141,12 +141,24 @@ repositories {
     // }
     maven {
         name = "Changed"
-        url = "https://raw.githubusercontent.com/LtxProgrammer/Changed-Minecraft-Mod/master/mcmodsrepo/"
+        url = "https://raw.githubusercontent.com/LtxProgrammer/Changed-Minecraft-Mod/refs/heads/1.20.1-dev/mcmodsrepo/"
     }
     maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        // forRepositories(fg.repository) // Uncomment when using ForgeGradle
+        filter {
+            includeGroup "maven.modrinth"
         }
     }
 }
@@ -159,7 +171,7 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     implementation fg.deobf("net.ltxprogrammer.changed:Changed-m${minecraftVersion}-f${forgeVersion}:${changedVersion}")
-    implementation fg.deobf("curse.maven:figura-901503:5151782")
+    implementation ("maven.modrinth:s9gIPDom:LXMnmMxn") // figura
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
